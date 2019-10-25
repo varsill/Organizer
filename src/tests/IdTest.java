@@ -3,7 +3,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.mlt.Id;
+import org.mlt.Identifier;
 import org.mlt.IdGenerator;
 
 public class IdTest {
@@ -28,7 +28,7 @@ public class IdTest {
 	public void test()
 	{
 		MyGenerator gen = new MyGenerator();
-		Id x = new Id(gen);
+		Identifier x = new Identifier(gen);
 		assertEquals(x.readAsInteger(), new Integer(2));
 		Integer i = x.readAsInteger();
 		i=new Integer(3);

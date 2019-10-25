@@ -15,13 +15,19 @@ public class Main {
 	
 	protected static class MainIdGenerator implements IdGenerator
 	{
-		
+		 private static final int MAX_NO_OF_IDS = Integer.MAX_VALUE; 
+		 private static int offset = 0;
 		//Singleton implementation
-		private MainIdGenerator(){}
+		
+		 private MainIdGenerator()
+		 {
+			
+		 } 
 	    
 	    private static class SingletonHelper{
 	        private static final MainIdGenerator INSTANCE = new MainIdGenerator();
 	    }
+	    
 	    /**
 	     * 
 	     * @return instance of singleton object of class MainIdGenerator
@@ -32,16 +38,10 @@ public class Main {
 	    
 		
 	    //MainIdGenerator Initialization
-	    private static final int MAX_NO_OF_IDS = 30; 
+	   
 		
 		@SuppressWarnings("serial")
-		private static LinkedList<Integer> ids = new LinkedList<Integer>()
-		{{
-			for(int i=0; i<MAX_NO_OF_IDS; i++)
-			{
-				addLast(i);
-			}
-		}};
+		private static LinkedList<Integer> ids = new LinkedList<Integer>();
 		
 		
 		//Methods

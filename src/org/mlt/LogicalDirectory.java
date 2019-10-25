@@ -2,10 +2,11 @@ package org.mlt;
 
 import java.util.LinkedList;
 
-public class Directory extends Member{
+public class LogicalDirectory extends Member
+{
     public LinkedList <Member> children;
 
-    public Directory(int id, String name)
+    public LogicalDirectory(Identifier id, String name)
     {
         super(id, name);
         this.children = new LinkedList<Member>();
@@ -14,7 +15,7 @@ public class Directory extends Member{
     public void addChild(Member child)
     {
         int pos = findPositionForChild(child);
-            this.children.add(pos, child);
+        this.children.add(pos, child);
     }
 
     public void deleteChild(Member child)
@@ -29,7 +30,7 @@ public class Directory extends Member{
         for(Member child : this.children)
         {
             if(priority(child) == newChildPriority) {
-                if (child.name.compareTo(newChild.name) >= 0)
+                if (child.getName().compareTo(newChild.getName()) >= 0)
                     return this.children.indexOf(child);
             }
             else if(priority(child) > newChildPriority)
@@ -41,7 +42,7 @@ public class Directory extends Member{
 
     private int priority(Member object)
     {
-        if(object instanceof Directory)
+        if(object instanceof LogicalDirectory)
             return 0;
         if(object instanceof File)
             return 1;

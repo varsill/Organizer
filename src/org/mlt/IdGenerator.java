@@ -4,10 +4,7 @@ public interface IdGenerator {
 	
 	 /** 
 	  * 
-	  * 
-	  * 
-	  * 
-	  *
+	
 	  * @return generated Id as Integer
 	  * @throws Exception - when Id cannot be generated
 	  */

@@ -1,11 +1,11 @@
 package org.mlt;
 
 public class Member {
-    protected final int id;
-    protected String description;
-    protected String name;
+    private final Identifier id;
+    private String description;
+    private String name;
 
-    protected Member(int id, String name)
+    protected Member(Identifier id, String name)
     {
         this.id = id;
         this.name = name;
