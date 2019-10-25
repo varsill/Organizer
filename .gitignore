@@ -5,3 +5,7 @@ bin
 .classpath
 .project
 .gitignore
+.directory
+Organizer.iml
+/out
+.idea
