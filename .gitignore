@@ -1,6 +1,5 @@
-.git
-.metadata
-.settings
-bin
-.classpath
-.project
+.gitignore
+.idea
+Organizer.iml
+.directory
+/out

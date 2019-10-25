@@ -3,16 +3,18 @@ package org.mlt;
 import java.util.LinkedList;
 
 public class Directory extends Member{
-    private LinkedList <Member> children;
+    public LinkedList <Member> children;
 
     public Directory(int id, String name)
     {
         super(id, name);
+        this.children = new LinkedList<Member>();
     }
 
     public void addChild(Member child)
     {
-        this.children.add(findPositionForChild(child), child);
+        int pos = findPositionForChild(child);
+            this.children.add(pos, child);
     }
 
     public void deleteChild(Member child)
@@ -20,19 +22,18 @@ public class Directory extends Member{
         this.children.remove(child);
     }
 
-    private int findPositionForChild(Member child)
+    private int findPositionForChild(Member newChild)
     {
-        int childPriority = priority(child);
+        int newChildPriority = priority(newChild);
 
-        for(int i = 0; i < this.children.size(); i++)
+        for(Member child : this.children)
         {
-            Member nextElement = this.children.get(i);
-            if(priority(nextElement) == childPriority) {
-                if (nextElement.name.compareTo(child.name) >= 0)
-                    return i;
+            if(priority(child) == newChildPriority) {
+                if (child.name.compareTo(newChild.name) >= 0)
+                    return this.children.indexOf(child);
             }
-            else if(priority(nextElement) < childPriority)
-                    return i;
+            else if(priority(child) > newChildPriority)
+                    return this.children.indexOf(child);
 
         }
         return this.children.size();
