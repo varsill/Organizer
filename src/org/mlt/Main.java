@@ -22,7 +22,10 @@ public class Main {
 	    private static class SingletonHelper{
 	        private static final MainIdGenerator INSTANCE = new MainIdGenerator();
 	    }
-	    
+	    /**
+	     * 
+	     * @return instance of singleton object of class MainIdGenerator
+	     */
 	    public static MainIdGenerator getInstance(){
 	        return SingletonHelper.INSTANCE;
 	    }
@@ -45,7 +48,7 @@ public class Main {
 		@Override
 		public Integer getId() throws Exception
 		{
-			Integer result = ids.pollFirst();//returns null if list is empty
+			Integer result = ids.pollFirst();//returns null if the list is empty
 			if(result==null) throw new Exception("Error. There are no free ids left. ");
 			return result; 
 			
