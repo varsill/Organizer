@@ -15,6 +15,7 @@ public class Main {
 	
 	protected static class MainIdGenerator implements IdGenerator
 	{
+		
 		//Singleton implementation
 		private MainIdGenerator(){}
 	    
@@ -38,6 +39,7 @@ public class Main {
 				addLast(i);
 			}
 		}};
+		
 		
 		//Methods
 		@Override
