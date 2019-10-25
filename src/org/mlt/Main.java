@@ -13,10 +13,23 @@ public class Main {
 		
 	}
 	
-	protected static class IdGenerator
+	protected static class MainIdGenerator implements IdGenerator
 	{
 		
-		private static final int MAX_NO_OF_IDS = 30; 
+		//Singleton implementation
+		private MainIdGenerator(){}
+	    
+	    private static class SingletonHelper{
+	        private static final MainIdGenerator INSTANCE = new MainIdGenerator();
+	    }
+	    
+	    public static MainIdGenerator getInstance(){
+	        return SingletonHelper.INSTANCE;
+	    }
+	    
+		
+	    //MainIdGenerator Initialization
+	    private static final int MAX_NO_OF_IDS = 30; 
 		
 		@SuppressWarnings("serial")
 		private static LinkedList<Integer> ids = new LinkedList<Integer>()
@@ -27,7 +40,10 @@ public class Main {
 			}
 		}};
 		
-		public static Integer getId() throws Exception
+		
+		//Methods
+		@Override
+		public Integer getId() throws Exception
 		{
 			Integer result = ids.pollFirst();//returns null if list is empty
 			if(result==null) throw new Exception("Error. There are no free ids left. ");
@@ -35,16 +51,16 @@ public class Main {
 			
 		}
 		
-		public static void freeId(Integer id)
+		
+		@Override
+		public void freeId(Integer id)
 		{
 			int index = ids.indexOf(id);
 			if(index!=-1)return;//number is already on the ids list
 			ids.addFirst(id);
 		}
 		
-		
-		
-		
+			
 		
 	}
 }
