@@ -3,33 +3,44 @@ package tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
-import org.mlt.Directory;
-import org.mlt.File;
-import org.mlt.Link;
-import org.mlt.Member;
 
-class DirectoryTest {
-    private Directory testDirectory;
+import org.mlt.*;
+
+class LogicalDirectoryTest {
+    private LogicalDirectory testDirectory;
+    private Identifier id;
+
     @BeforeEach
     void setUp()
     {
-        testDirectory = new Directory(1,"for tests");
+        id = new Identifier(new IdGenerator() {
+            @Override
+            public Integer getId() throws Exception {
+                return 1;
+            }
+
+            @Override
+            public void freeId(Integer id) {
+
+            }
+        });
+        testDirectory = new LogicalDirectory(id,"for tests");
     }
 
     @Test
     void addingToList()
     {
-        testDirectory.addChild(new File(2, "plik 3", "123"));
-        testDirectory.addChild(new Link(3, "link 3", "asdasd"));
-        testDirectory.addChild(new Directory(1,"folder 1"));
+        testDirectory.addChild(new File(id, "plik 3", "123"));
+        testDirectory.addChild(new Link(id, "link 3", "asdasd"));
+        testDirectory.addChild(new LogicalDirectory(id,"folder 1"));
         assertTrue(isOk());
-        testDirectory.addChild(new Link(3, "ala", "asdasd"));
-        testDirectory.addChild(new Directory(1,"ala"));
-        testDirectory.addChild(new File(2, "ala", "123"));
+        testDirectory.addChild(new Link(id, "ala", "asdasd"));
+        testDirectory.addChild(new LogicalDirectory(id,"ala"));
+        testDirectory.addChild(new File(id, "ala", "123"));
         assertTrue(isOk());
-        testDirectory.addChild(new Directory(1,"folder 3"));
-        testDirectory.addChild(new File(2, "plik 1", "123"));
-        testDirectory.addChild(new Link(3, "link 1", "asdasd"));
+        testDirectory.addChild(new LogicalDirectory(id,"folder 3"));
+        testDirectory.addChild(new File(id, "plik 1", "123"));
+        testDirectory.addChild(new Link(id, "link 1", "asdasd"));
         assertTrue(isOk());
     }
 
@@ -55,7 +66,7 @@ class DirectoryTest {
 
     private int priority(Member object)
     {
-        if(object instanceof Directory)
+        if(object instanceof LogicalDirectory)
             return 0;
         if(object instanceof File)
             return 1;

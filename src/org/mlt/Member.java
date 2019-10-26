@@ -5,7 +5,7 @@ public class Member {
     private String description;
     private String name;
 
-    protected Member(Identifier id, String name)
+    Member(Identifier id, String name)
     {
         this.id = id;
         this.name = name;
