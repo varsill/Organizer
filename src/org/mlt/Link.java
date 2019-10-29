@@ -10,6 +10,6 @@ public class Link extends Member{
     }
     public String getAddress()
     {
-    	
+    	return this.address;
     }
 }
