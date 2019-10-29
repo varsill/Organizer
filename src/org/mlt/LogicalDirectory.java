@@ -34,7 +34,8 @@ public class LogicalDirectory extends Member
 
         for(Member child : this.children)
         {
-            if(priority(child) == newChildPriority) {
+            if(priority(child) == newChildPriority) 
+            {
                 if (child.getName().compareTo(newChild.getName()) >= 0)
                     return this.children.indexOf(child);
             }

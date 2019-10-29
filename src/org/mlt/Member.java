@@ -1,10 +1,7 @@
 package org.mlt;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-public abstract class Member {
-    protected final Identifier id;
+public class Member {
+    private final Identifier id;
     private String description;
     private String name;
 
@@ -34,5 +31,8 @@ public abstract class Member {
         return this.name;
     }
 
+    public void open()
+    {
 
+    }
 }

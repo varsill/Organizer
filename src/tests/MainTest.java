@@ -37,9 +37,9 @@ class MainTest extends Main{
 			 
 			 assertThrows(Exception.class, () ->
 	         { 
-	        	 for(int i=0; i<=30; i++) generator.getId();
+	        	 for(int i=0; i<32; i++) generator.getId();
 	         });
-				
+			
 		
 	}
 	

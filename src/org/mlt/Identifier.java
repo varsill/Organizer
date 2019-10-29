@@ -13,11 +13,11 @@ public class Identifier extends Object {
 	{
 		id_num=-1;
 		generator=null;
-	}
+	} 
 	/**
-	 * The only available constructor.
+	 * Constructor for obtaining new identifier
 	 * If  generator cannot generate numerical id then id_num is set to -1.
-	 * @param generator - object to get numerical id generated from
+	 * @param generator - source capable of creating numerical id
 	 * 
 	 */
 	public Identifier(IdGenerator generator)
@@ -36,6 +36,19 @@ public class Identifier extends Object {
 		
 		this.id_num=id;
 		
+	}
+	/**
+	 * Constructor for reusing already taken ids (for example during deserialization)
+	 * @param generator - source capable of creating numerical id 
+	 * @param x - integer representing the id we want to reuse
+	 * @throws Exception - thrown if proposed id is already in use and user cannot retake it
+	 * 
+	 */
+	public Identifier(IdGenerator generator, int x) throws Exception
+	{
+		this.generator=generator;
+		if(!generator.isOccupied(x))this.id_num=x;
+		else throw new Exception("Proposed id is already in use.");
 	}
 	
 	

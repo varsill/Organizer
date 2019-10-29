@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.mlt.Identifier;
 import org.mlt.IdGenerator;
@@ -21,6 +23,24 @@ public class IdTest {
 		public void freeId(Integer id) {
 			return;
 			
+		}
+
+		@Override
+		public List<String> serialize() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void deserialize(List<String> args) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean isOccupied(Integer id) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 		
 	}
