@@ -16,7 +16,7 @@ public class Main {
 	
 	protected static class MainIdGenerator implements IdGenerator
 	{
-		 private static final int MAX_NO_OF_IDS = Integer.MAX_VALUE; 
+		 private static final int MAX_NO_OF_IDS = 30; 
 		 private static int offset = 0;
 		 private static LinkedList<Integer> ids;
 		//Singleton implementation
@@ -49,7 +49,7 @@ public class Main {
 			Integer result = ids.pollFirst();//returns null if the list is empty
 			if(result==null)
 			{
-				if(offset == Integer.MAX_VALUE)
+				if(offset == MAX_NO_OF_IDS)
 					throw new Exception("Error. There are no free ids left. ");
 			
 				result=offset;
