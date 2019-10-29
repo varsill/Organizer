@@ -57,13 +57,12 @@ public class Member implements ISerializable {
 		try {
 			this.id = new Identifier(Main.MainIdGenerator.getInstance(), Integer.valueOf(args.get(0)));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		this.description=args.get(1);
+		this.name=args.get(2);
 		
 	}
     

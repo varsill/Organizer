@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.mlt.*;
 
 class LogicalDirectoryTest {
@@ -23,6 +25,24 @@ class LogicalDirectoryTest {
             public void freeId(Integer id) {
 
             }
+
+			@Override
+			public List<String> serialize() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void deserialize(List<String> args) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public boolean isOccupied(Integer id) {
+				// TODO Auto-generated method stub
+				return false;
+			}
         });
         testDirectory = new LogicalDirectory(id,"for tests");
     }
