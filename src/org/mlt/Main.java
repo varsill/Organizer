@@ -1,5 +1,6 @@
 package org.mlt;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class Main {
@@ -17,14 +18,17 @@ public class Main {
 	{
 		 private static final int MAX_NO_OF_IDS = Integer.MAX_VALUE; 
 		 private static int offset = 0;
+		 private static LinkedList<Integer> ids;
 		//Singleton implementation
 		
 		 private MainIdGenerator()
 		 {
-			
+			offset = 0;
+		    ids = new LinkedList<Integer>(); 
 		 } 
 	    
-	    private static class SingletonHelper{
+	    private static class SingletonHelper
+	    {
 	        private static final MainIdGenerator INSTANCE = new MainIdGenerator();
 	    }
 	    
@@ -37,19 +41,20 @@ public class Main {
 	    }
 	    
 		
-	    //MainIdGenerator Initialization
-	   
-		
-		@SuppressWarnings("serial")
-		private static LinkedList<Integer> ids = new LinkedList<Integer>();
-		
-		
+
 		//Methods
 		@Override
 		public Integer getId() throws Exception
 		{
 			Integer result = ids.pollFirst();//returns null if the list is empty
-			if(result==null) throw new Exception("Error. There are no free ids left. ");
+			if(result==null)
+			{
+				if(offset == Integer.MAX_VALUE)
+					throw new Exception("Error. There are no free ids left. ");
+			
+				result=offset;
+				offset=offset+1;
+			}
 			return result; 
 			
 		}
@@ -60,7 +65,20 @@ public class Main {
 		{
 			int index = ids.indexOf(id);
 			if(index!=-1)return;//number is already on the ids list
+
 			ids.addFirst(id);
+			
+		}
+		
+		private void optimize()
+		{
+			Collections.sort(ids);
+			int x = ids.getLast();
+			while(offset==x)
+			{
+				offset=offset-1;
+				x=ids.poll();
+			}
 		}
 		
 			
