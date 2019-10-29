@@ -30,16 +30,16 @@ class LogicalDirectoryTest {
     @Test
     void addingToList()
     {
-        testDirectory.addChild(new File(id, "plik 3", "123"));
+        testDirectory.addChild(new UsersFile(id, "plik 3", "123"));
         testDirectory.addChild(new Link(id, "link 3", "asdasd"));
         testDirectory.addChild(new LogicalDirectory(id,"folder 1"));
         assertTrue(isOk());
         testDirectory.addChild(new Link(id, "ala", "asdasd"));
         testDirectory.addChild(new LogicalDirectory(id,"ala"));
-        testDirectory.addChild(new File(id, "ala", "123"));
+        testDirectory.addChild(new UsersFile(id, "ala", "123"));
         assertTrue(isOk());
         testDirectory.addChild(new LogicalDirectory(id,"folder 3"));
-        testDirectory.addChild(new File(id, "plik 1", "123"));
+        testDirectory.addChild(new UsersFile(id, "plik 1", "123"));
         testDirectory.addChild(new Link(id, "link 1", "asdasd"));
         assertTrue(isOk());
     }
@@ -68,7 +68,7 @@ class LogicalDirectoryTest {
     {
         if(object instanceof LogicalDirectory)
             return 0;
-        if(object instanceof File)
+        if(object instanceof UsersFile)
             return 1;
         if(object instanceof Link)
             return 2;

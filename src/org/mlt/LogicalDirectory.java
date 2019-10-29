@@ -44,7 +44,7 @@ public class LogicalDirectory extends Member
     {
         if(object instanceof LogicalDirectory)
             return 0;
-        if(object instanceof File)
+        if(object instanceof UsersFile)
             return 1;
         if(object instanceof Link)
             return 2;
