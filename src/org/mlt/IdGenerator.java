@@ -1,6 +1,6 @@
 package org.mlt;
 
-public interface IdGenerator {
+public interface IdGenerator extends ISerializable {
 	
 	 /** 
 	  * 
@@ -14,4 +14,5 @@ public interface IdGenerator {
 	  * @param id - Integer value of Id to be realised
 	  */
 	 void freeId(Integer id);
+	 boolean isOccupied(Integer id);
 }

@@ -2,6 +2,7 @@ package org.mlt;
 
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 	
@@ -14,7 +15,7 @@ public class Main {
 		
 	}
 	
-	protected static class MainIdGenerator implements IdGenerator
+	public static class MainIdGenerator implements IdGenerator
 	{
 		 private static final int MAX_NO_OF_IDS = 30; 
 		 private static int offset = 0;
@@ -63,6 +64,7 @@ public class Main {
 		@Override
 		public void freeId(Integer id)
 		{
+			if(id>=offset)return;
 			int index = ids.indexOf(id);
 			if(index!=-1)return;//number is already on the ids list
 
@@ -79,6 +81,41 @@ public class Main {
 				offset=offset-1;
 				x=ids.poll();
 			}
+		}
+
+
+
+		@Override
+		public List<String> serialize() {
+			List<String> result = new LinkedList<String>();
+			result.add(new Integer(offset).toString());
+			for(Integer i: ids)
+			{
+				result.add(i.toString());
+			}
+			return result;
+		}
+
+
+
+		@Override
+		public void deserialize(List<String> args) {
+			offset = Integer.valueOf(args.get(0));
+			for(int i=1; i<args.size(); i++)
+			{
+				ids.add(Integer.valueOf(args.get(i)));
+			}
+			
+		}
+
+
+
+		@Override
+		public boolean isOccupied(Integer id) {
+			if(id>=offset) return false;
+			int index = ids.indexOf(id);
+			if(index==-1)return false;//number is already on the ids list
+			return true;
 		}
 		
 			
