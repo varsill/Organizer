@@ -23,6 +23,11 @@ public class LogicalDirectory extends Member
         this.children.remove(child);
     }
 
+    public void open()
+    {
+
+    }
+
     private int findPositionForChild(Member newChild)
     {
         int newChildPriority = priority(newChild);

@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Serializer {
     private static char[] escapeChars = {'/', '{', '}'};
+    private static List<String> intoFile = new ArrayList<>();
 
     public static void writeIntoFile(List<String> data, String fileName) throws FileNotFoundException {
         PrintWriter outPutFile = new PrintWriter(fileName);
@@ -27,10 +29,6 @@ public class Serializer {
         writeIntoFile(data, "objects.txt");
     }
 
-    public static List<String> readFromFile() throws FileNotFoundException {
-        return readFromFile("objects.txt");
-    }
-
     public static List<String> readFromFile(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner in = new Scanner(file);
@@ -45,10 +43,17 @@ public class Serializer {
         return data;
     }
 
+    public static void save(String fileName) throws FileNotFoundException {
+        writeIntoFile(intoFile, fileName);
+    }
+
+    public static List<String> readFromFile() throws FileNotFoundException {
+        return readFromFile("objects.txt");
+    }
+
     private static String[] splitString(String fileInput)
     {
-        fileInput = removeFrames(fileInput);
-        return fileInput.split("}\\{");
+        return removeFrames(fileInput).split("}\\{");
     }
 
     private static String removeFrames(String rawString)
