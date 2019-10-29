@@ -12,22 +12,32 @@ public class Serializer {
     private static char[] escapeChars = {'/', '{', '}'};
     private static List<String> intoFile = new ArrayList<>();
 
-    public static void writeIntoFile(List<String> data, String fileName) throws FileNotFoundException {
-        PrintWriter outPutFile = new PrintWriter(fileName);
-        StringBuilder intoFile = new StringBuilder();
-        for(String oneObject: data)
-        {
-            intoFile.append('{');
-            intoFile.append(escape(oneObject));
-            intoFile.append('}');
-        }
-        outPutFile.print(intoFile.toString());
-        outPutFile.close();
+    public static void addObjectToList(ISerializable object){
+        intoFile.add(convertToString(object.serialize()));
     }
 
-    public static void writeIntoFile(List<String> data) throws FileNotFoundException {
-        writeIntoFile(data, "objects.txt");
+    private static String convertToString(List<String> data)
+    {
+        StringBuilder intoFile = new StringBuilder();
+        for(String onePart: data)
+        {
+            intoFile.append('{');
+            intoFile.append(escape(onePart));
+            intoFile.append('}');
+        }
+        return intoFile.toString();
     }
+
+    public static void recoverObjects(String fileName) throws FileNotFoundException {
+        List<String> allObjects = readFromFile(fileName);
+
+        for(String oneObject: allObjects)
+        {
+            List<String> dataForObject = null;
+        }
+    }
+
+//    public static
 
     public static List<String> readFromFile(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
@@ -44,7 +54,9 @@ public class Serializer {
     }
 
     public static void save(String fileName) throws FileNotFoundException {
-        writeIntoFile(intoFile, fileName);
+        PrintWriter outPutFile = new PrintWriter(fileName);
+        outPutFile.print(convertToString(intoFile));
+        outPutFile.close();
     }
 
     public static List<String> readFromFile() throws FileNotFoundException {

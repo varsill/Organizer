@@ -8,6 +8,7 @@ import org.mlt.LogicalDirectory;
 import org.mlt.UsersFile;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +20,16 @@ class UsersFileTest {
     {
         id = new Identifier(new IdGenerator() {
             @Override
+            public List<String> serialize() {
+                return null;
+            }
+
+            @Override
+            public void deserialize(List<String> args) {
+
+            }
+
+            @Override
             public Integer getId() throws Exception {
                 return 1;
             }
@@ -26,6 +37,11 @@ class UsersFileTest {
             @Override
             public void freeId(Integer id) {
 
+            }
+
+            @Override
+            public boolean isOccupied(Integer id) {
+                return false;
             }
         });
     }

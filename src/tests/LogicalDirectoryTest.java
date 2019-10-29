@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 
 import org.mlt.*;
 
+import java.util.List;
+
 class LogicalDirectoryTest {
     private LogicalDirectory testDirectory;
     private Identifier id;
@@ -15,6 +17,16 @@ class LogicalDirectoryTest {
     {
         id = new Identifier(new IdGenerator() {
             @Override
+            public List<String> serialize() {
+                return null;
+            }
+
+            @Override
+            public void deserialize(List<String> args) {
+
+            }
+
+            @Override
             public Integer getId() throws Exception {
                 return 1;
             }
@@ -22,6 +34,11 @@ class LogicalDirectoryTest {
             @Override
             public void freeId(Integer id) {
 
+            }
+
+            @Override
+            public boolean isOccupied(Integer id) {
+                return false;
             }
         });
         testDirectory = new LogicalDirectory(id,"for tests");
