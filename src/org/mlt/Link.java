@@ -10,6 +10,12 @@ import java.net.URI;
 public class Link extends Member{
     private String address;
 
+    public Link()
+    {
+        super();
+
+    }
+
     public Link(Identifier id, String name, String address)
     {
         super(id, name);

@@ -11,7 +11,7 @@ public abstract class Member implements ISerializable{
     private String description;
     private String name;
 
-    private Member()
+    public Member()
     {
 
     }

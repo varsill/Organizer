@@ -26,12 +26,19 @@ public class Serializer {
 
     public static List<Member> recoverObjects(String fileName) throws FileNotFoundException {
         List<Member> objectsReference = new ArrayList<>();
+        Member oneMember = null;
         List<String> allObjects = convertToArrayOfString(readFromFile(fileName));
 
         for(String oneObject: allObjects)
         {
             List<String> dataForObject = convertToArrayOfString(oneObject);
-            objectsReference.add((Member)ISerializable.createFromStringList(dataForObject));
+            switch (dataForObject.get(0))
+            {
+                case "link" :
+//                    oneMember = new Link();
+                    oneMember = (Link)ISerializable.createFromStringList(dataForObject);
+            }
+            objectsReference.add(oneMember);
         }
 
         return objectsReference;

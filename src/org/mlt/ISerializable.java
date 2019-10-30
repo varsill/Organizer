@@ -30,7 +30,8 @@ public interface ISerializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	result.deserialize(args);
+			assert result != null;
+			result.deserialize(args);
 			return result;
 	    }
 
