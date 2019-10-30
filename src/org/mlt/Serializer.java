@@ -4,32 +4,40 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Serializer {
     private static char[] escapeChars = {'/', '{', '}'};
+    private static List<String> intoFile = new ArrayList<>();
 
-    public static void writeIntoFile(List<String> data, String fileName) throws FileNotFoundException {
-        PrintWriter outPutFile = new PrintWriter(fileName);
+    public static void addObjectToList(ISerializable object){
+        intoFile.add(convertToString(object.serialize()));
+    }
+
+    private static String convertToString(List<String> data)
+    {
         StringBuilder intoFile = new StringBuilder();
-        for(String oneObject: data)
+        for(String onePart: data)
         {
             intoFile.append('{');
-            intoFile.append(escape(oneObject));
+            intoFile.append(escape(onePart));
             intoFile.append('}');
         }
-        outPutFile.print(intoFile.toString());
-        outPutFile.close();
+        return intoFile.toString();
     }
 
-    public static void writeIntoFile(List<String> data) throws FileNotFoundException {
-        writeIntoFile(data, "objects.txt");
+    public static void recoverObjects(String fileName) throws FileNotFoundException {
+        List<String> allObjects = readFromFile(fileName);
+
+        for(String oneObject: allObjects)
+        {
+            List<String> dataForObject = null;
+        }
     }
 
-    public static List<String> readFromFile() throws FileNotFoundException {
-        return readFromFile("objects.txt");
-    }
+//    public static
 
     public static List<String> readFromFile(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
@@ -45,10 +53,19 @@ public class Serializer {
         return data;
     }
 
+    public static void save(String fileName) throws FileNotFoundException {
+        PrintWriter outPutFile = new PrintWriter(fileName);
+        outPutFile.print(convertToString(intoFile));
+        outPutFile.close();
+    }
+
+    public static List<String> readFromFile() throws FileNotFoundException {
+        return readFromFile("objects.txt");
+    }
+
     private static String[] splitString(String fileInput)
     {
-        fileInput = removeFrames(fileInput);
-        return fileInput.split("}\\{");
+        return removeFrames(fileInput).split("}\\{");
     }
 
     private static String removeFrames(String rawString)

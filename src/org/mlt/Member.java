@@ -1,18 +1,25 @@
 package org.mlt;
 
-import java.util.LinkedList;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Member implements ISerializable {
+public abstract class Member implements ISerializable{
     private Identifier id;
     private String description;
     private String name;
 
-    public Member()
+    
+   
+    
+    private Member()
     {
-    	
+
     }
-    public Member(Identifier id, String name)
+
+    Member(Identifier id, String name)
     {
         this.id = id;
         this.name = name;
@@ -38,20 +45,18 @@ public class Member implements ISerializable {
         return this.name;
     }
 
-    public void open()
-    {
+    public abstract void open() throws IOException;
 
+    @Override
+    public List<String> serialize() {
+        List<String> result = new ArrayList<String>();
+        result.add(id.readAsInteger().toString());
+        result.add(description);
+        result.add(name);
+        return result;
     }
 
-	@Override
-	public List<String> serialize() {
-		List<String> result = new LinkedList<String>();
-		result.add(id.readAsInteger().toString());
-		result.add(description);
-		result.add(name);
-		return result;
-	}
-
+   
 	@Override
 	public void deserialize(List<String> args) {
 		try {
@@ -66,5 +71,8 @@ public class Member implements ISerializable {
 		
 	}
     
+
+
     
+
 }

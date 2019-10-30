@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.mlt.*;
 
+import java.util.List;
+
 class LogicalDirectoryTest {
     private LogicalDirectory testDirectory;
     private Identifier id;
@@ -16,6 +18,8 @@ class LogicalDirectoryTest {
     void setUp()
     {
         id = new Identifier(new IdGenerator() {
+           
+
             @Override
             public Integer getId() throws Exception {
                 return 1;
@@ -25,6 +29,7 @@ class LogicalDirectoryTest {
             public void freeId(Integer id) {
 
             }
+
 
 			@Override
 			public List<String> serialize() {
@@ -38,11 +43,11 @@ class LogicalDirectoryTest {
 				
 			}
 
-			@Override
-			public boolean isOccupied(Integer id) {
-				// TODO Auto-generated method stub
-				return false;
-			}
+            @Override
+            public boolean isOccupied(Integer id) {
+                return false;
+            }
+
         });
         testDirectory = new LogicalDirectory(id,"for tests");
     }
