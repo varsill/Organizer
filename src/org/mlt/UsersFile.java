@@ -44,10 +44,14 @@ public class UsersFile extends Member {
         return this.source;
     }
     
-static ISerializable createFromStringList(List<String> args) {
-		
+    static ISerializable createFromStringList(List<String> args) {
 		UsersFile result = new UsersFile();
 		result.deserialize(args);
 		return result;
 	}
+
+    public boolean equals(Object other)
+    {
+        return super.equals(other) && this.getSource().equals(((UsersFile) other).getSource());
+    }
 }

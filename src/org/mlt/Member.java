@@ -45,6 +45,26 @@ public abstract class Member implements ISerializable{
 
     public abstract void open() throws IOException;
 
+    public Identifier getId()
+    {
+        return this.id;
+    }
+
+    public boolean equals(Object other)
+    {
+        if(other == null)
+            return false;
+        if(this == other) {
+            return true;
+        }
+        if(!(other.getClass().equals(this.getClass()))) {
+            return false;
+        }
+//        System.out.println();
+        return this.getName().equals(((Member) other).getName()) && this.getId().readAsInteger().equals(((Member)other).getId().readAsInteger()) &&
+                this.getDescription().equals(((Member) other).getDescription());
+    }
+
     @Override
     public List<String> serialize() {
         List<String> result = new ArrayList<String>();
@@ -65,11 +85,5 @@ public abstract class Member implements ISerializable{
 		}
 		this.description=args.get(1);
 		this.name=args.get(2);
-		
 	}
-    
-
-
-    
-
 }

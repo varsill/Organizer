@@ -61,4 +61,9 @@ public class Link extends Member {
 		result.deserialize(args);
 		return result;
 	}
+
+	public boolean equals(Object other)
+    {
+        return super.equals(other) && this.address.equals(((Link) other).address);
+    }
 }

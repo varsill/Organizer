@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.mlt.ISerializable.*;
 
 public class Serializer {
-    private static char[] escapeChars = {'/', '{', '}'};
+    private static char[] escapeChars = {'{', '}', '/'};
     private static List<String> intoFile = new ArrayList<>();
 
     public static void addObjectToList(ISerializable object){
@@ -29,9 +28,7 @@ public class Serializer {
 
     public static List<Member> recoverObjects(String fileName) throws FileNotFoundException {
         List<Member> objectsReference = new ArrayList<>();
-        Member oneMember = null;
         List<String> allObjects = convertToArrayOfString(readFromFile(fileName));
-
         for(String oneObject: allObjects)
         {
             List<String> dataForObject = convertToArrayOfString(oneObject);
@@ -40,11 +37,12 @@ public class Serializer {
             switch (objectClass)
             {
                 case "link" :
-                    //oneMember = new Link();
-                    oneMember = (Member) Link.createFromStringList(dataForObject);
-                   
+                    objectsReference.add((Member) Link.createFromStringList(dataForObject));
+                    break;
+                case "file" :
+                    objectsReference.add((Member) UsersFile.createFromStringList(dataForObject));
+                    break;
             }
-            objectsReference.add(oneMember);
         }
 
         return objectsReference;
@@ -92,7 +90,7 @@ public class Serializer {
 
     private static String[] splitString(String fileInput)
     {
-        return removeFrames(fileInput).split("}\\{");
+        return removeFrames(fileInput).split("}\\{", -1);
     }
 
     private static String removeFrames(String rawString)

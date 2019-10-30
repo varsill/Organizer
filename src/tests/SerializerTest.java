@@ -27,7 +27,7 @@ class SerializerTest {
 
             }
 
-            public Integer getId() throws Exception {
+            public Integer getId() {
                 return 1;
             }
 
@@ -42,10 +42,10 @@ class SerializerTest {
             }
         });
         objects = new ArrayList<>();
-//        objects.add(new UsersFile(id, "jakis pliczek", "C:/cos/costam.png"));
-//        objects.add(new UsersFile(id, "jakis p//lic//zek", "C:/23cos/costam.txt"));
-//        objects.add(new UsersFile(id, "jakis pliczek", "C:/co11s/cos12tam.txt"));
-//        objects.add(new UsersFile(id, "{}{{ p///////lic}ek", "C:/gdzies/costam.txt"));
+        objects.add(new UsersFile(id, "jakis pliczek", "C:/cos/costam.png"));
+        objects.add(new UsersFile(id, "jakis p//lic//zek", "C:/23cos/costam.txt"));
+        objects.add(new UsersFile(id, "jakis pliczek", "C:/co11s/cos12tam.txt"));
+        objects.add(new UsersFile(id, "{}{{ p///////lic}ek", "C:/gdzies/costam.txt"));
 
 //        objects.add(new LogicalDirectory(id, "moj katalog"));
 //        objects.add(new LogicalDirectory(id, "drugi katalog"));
@@ -53,9 +53,9 @@ class SerializerTest {
 //        objects.add(new LogicalDirectory(id, "neiw iem"));
 
         objects.add(new Link(id, "link numer 1", "https://facebook.com"));
-//        objects.add(new Link(id, "link numer 1", "https://onet.pl"));
-//        objects.add(new Link(id, "link numer 1", "https://youtube.com"));
-//        objects.add(new Link(id, "link numer 1", "https://mlt.org/gdzies/tam.php?"));
+        objects.add(new Link(id, "", ""));
+        objects.add(new Link(id, "link numer 3", "https://youtube.com"));
+        objects.add(new Link(id, " ", "https://mlt.org/gdzies/tam.php?"));
     }
 
     @Test
@@ -65,7 +65,6 @@ class SerializerTest {
             Serializer.addObjectToList(object);
         }
         Serializer.save("tests.txt");
-        System.out.println(objects.get(0));
         assertEquals(objects, Serializer.recoverObjects("tests.txt"));
     }
 }
