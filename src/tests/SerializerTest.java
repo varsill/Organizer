@@ -56,9 +56,9 @@ class SerializerTest {
 //        objects.add(new LogicalDirectory(id, "neiw iem"));
 
         objects.add(new Link(id, "link numer 1", "https://facebook.com"));
-        objects.add(new Link(id, "link numer 1", "https://onet.pl"));
-        objects.add(new Link(id, "link numer 1", "https://youtube.com"));
-        objects.add(new Link(id, "link numer 1", "https://mlt.org/gdzies/tam.php?"));
+//        objects.add(new Link(id, "link numer 1", "https://onet.pl"));
+//        objects.add(new Link(id, "link numer 1", "https://youtube.com"));
+//        objects.add(new Link(id, "link numer 1", "https://mlt.org/gdzies/tam.php?"));
     }
 
     @Test

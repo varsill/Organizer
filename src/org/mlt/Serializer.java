@@ -14,7 +14,10 @@ public class Serializer {
     private static List<String> intoFile = new ArrayList<>();
 
     public static void addObjectToList(ISerializable object){
-        intoFile.add(convertToString(object.serialize()));
+        List<String> allInformationAboutObject = object.serialize();
+        allInformationAboutObject.add(0, convertObjectClassToString(object));
+
+        intoFile.add(convertToString(allInformationAboutObject));
     }
 
     public static void save(String fileName) throws FileNotFoundException {
@@ -32,7 +35,9 @@ public class Serializer {
         for(String oneObject: allObjects)
         {
             List<String> dataForObject = convertToArrayOfString(oneObject);
-            switch (dataForObject.get(0))
+            String objectClass = dataForObject.get(0);
+            dataForObject.remove(0);
+            switch (objectClass)
             {
                 case "link" :
 //                    oneMember = new Link();
@@ -42,6 +47,17 @@ public class Serializer {
         }
 
         return objectsReference;
+    }
+
+    private static String convertObjectClassToString(ISerializable object)
+    {
+        if(object instanceof Link)
+            return "link";
+        if(object instanceof UsersFile)
+            return "file";
+        if(object instanceof LogicalDirectory)
+            return "dic";
+        return "";
     }
 
     private static String convertToString(List<String> data)
