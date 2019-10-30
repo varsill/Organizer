@@ -1,11 +1,17 @@
 package org.mlt;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class LogicalDirectory extends Member
 {
     public LinkedList <Member> children;
-
+    
+    private LogicalDirectory()
+    {
+    	super();
+    }
+    
     public LogicalDirectory(Identifier id, String name)
     {
         super(id, name);
@@ -57,4 +63,12 @@ public class LogicalDirectory extends Member
             return 2;
         return 100;
     }
+    
+static ISerializable createFromStringList(List<String> args) {
+		
+		LogicalDirectory result = new LogicalDirectory();
+		result.deserialize(args);
+		return result;
+	}
+    
 }

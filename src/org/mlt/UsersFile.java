@@ -8,6 +8,11 @@ import java.util.List;
 public class UsersFile extends Member {
     private String source;
 
+    
+    private UsersFile()
+    {
+    	super();
+    }
     public UsersFile(Identifier id, String name, String source)
     {
         super(id, name);
@@ -38,4 +43,11 @@ public class UsersFile extends Member {
     {
         return this.source;
     }
+    
+static ISerializable createFromStringList(List<String> args) {
+		
+		UsersFile result = new UsersFile();
+		result.deserialize(args);
+		return result;
+	}
 }

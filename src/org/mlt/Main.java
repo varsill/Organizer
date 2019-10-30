@@ -118,6 +118,13 @@ public class Main {
 			return true;
 		}
 		
+		static ISerializable createFromStringList(List<String> args) {
+			
+			MainIdGenerator result = new MainIdGenerator();
+			result.deserialize(args);
+			return result;
+		}
+		
 			
 		
 	}
