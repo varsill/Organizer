@@ -40,8 +40,9 @@ public class Serializer {
             switch (objectClass)
             {
                 case "link" :
-//                    oneMember = new Link();
-                    oneMember = (Link)ISerializable.createFromStringList(dataForObject);
+                    //oneMember = new Link();
+                    oneMember = (Member) Link.createFromStringList(dataForObject);
+                   
             }
             objectsReference.add(oneMember);
         }

@@ -19,17 +19,14 @@ class SerializerTest {
     @BeforeEach
     void setUp() {
         id = new Identifier(new IdGenerator() {
-            @Override
             public List<String> serialize() {
                 return null;
             }
 
-            @Override
             public void deserialize(List<String> args) {
 
             }
 
-            @Override
             public Integer getId() throws Exception {
                 return 1;
             }
@@ -68,6 +65,7 @@ class SerializerTest {
             Serializer.addObjectToList(object);
         }
         Serializer.save("tests.txt");
+        System.out.println(objects.get(0));
         assertEquals(objects, Serializer.recoverObjects("tests.txt"));
     }
 }

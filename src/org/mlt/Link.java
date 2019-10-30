@@ -7,10 +7,10 @@ import java.awt.*;
 import java.net.URI;
 
 
-public class Link extends Member{
+public class Link extends Member {
     private String address;
 
-    public Link()
+    private Link()
     {
         super();
 
@@ -53,4 +53,12 @@ public class Link extends Member{
         }
 
     }
+
+
+	static ISerializable createFromStringList(List<String> args) {
+		
+		Link result = new Link();
+		result.deserialize(args);
+		return result;
+	}
 }
