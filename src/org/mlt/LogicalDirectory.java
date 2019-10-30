@@ -28,6 +28,7 @@ public class LogicalDirectory extends Member
 
     }
 
+
     private int findPositionForChild(Member newChild)
     {
         int newChildPriority = priority(newChild);

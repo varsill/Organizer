@@ -11,9 +11,6 @@ public abstract class Member implements ISerializable{
     private String description;
     private String name;
 
-    
-   
-    
     private Member()
     {
 
@@ -23,6 +20,7 @@ public abstract class Member implements ISerializable{
     {
         this.id = id;
         this.name = name;
+        this.description = "";
     }
 
     public void addDescription(String description)
@@ -55,7 +53,6 @@ public abstract class Member implements ISerializable{
         result.add(name);
         return result;
     }
-
    
 	@Override
 	public void deserialize(List<String> args) {

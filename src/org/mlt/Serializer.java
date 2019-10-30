@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+
+import org.mlt.ISerializable.*;
 
 public class Serializer {
     private static char[] escapeChars = {'/', '{', '}'};
@@ -14,6 +15,26 @@ public class Serializer {
 
     public static void addObjectToList(ISerializable object){
         intoFile.add(convertToString(object.serialize()));
+    }
+
+    public static void save(String fileName) throws FileNotFoundException {
+        PrintWriter outPutFile = new PrintWriter(fileName);
+        outPutFile.print(convertToString(intoFile));
+        intoFile.clear();
+        outPutFile.close();
+    }
+
+    public static List<Member> recoverObjects(String fileName) throws FileNotFoundException {
+        List<Member> objectsReference = new ArrayList<>();
+        List<String> allObjects = convertToArrayOfString(readFromFile(fileName));
+
+        for(String oneObject: allObjects)
+        {
+            List<String> dataForObject = convertToArrayOfString(oneObject);
+            objectsReference.add((Member)ISerializable.createFromStringList(dataForObject));
+        }
+
+        return objectsReference;
     }
 
     private static String convertToString(List<String> data)
@@ -28,39 +49,21 @@ public class Serializer {
         return intoFile.toString();
     }
 
-    public static void recoverObjects(String fileName) throws FileNotFoundException {
-        List<String> allObjects = readFromFile(fileName);
-
-        for(String oneObject: allObjects)
-        {
-            List<String> dataForObject = null;
-        }
-    }
-
-//    public static
-
-    public static List<String> readFromFile(String fileName) throws FileNotFoundException {
+    private static String readFromFile(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner in = new Scanner(file);
+        return in.nextLine();
+    }
+
+    private static List<String> convertToArrayOfString(String input){
+
         List<String> data = new ArrayList<>();
 
-        String fileInput = in.nextLine();
-
-        for(String oneObjectData: splitString(fileInput))
+        for(String oneObjectData: splitString(input))
         {
             data.add(deEscape(oneObjectData));
         }
         return data;
-    }
-
-    public static void save(String fileName) throws FileNotFoundException {
-        PrintWriter outPutFile = new PrintWriter(fileName);
-        outPutFile.print(convertToString(intoFile));
-        outPutFile.close();
-    }
-
-    public static List<String> readFromFile() throws FileNotFoundException {
-        return readFromFile("objects.txt");
     }
 
     private static String[] splitString(String fileInput)
