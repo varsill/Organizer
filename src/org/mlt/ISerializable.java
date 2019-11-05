@@ -8,7 +8,7 @@ public interface ISerializable {
 	
 	
 	List<String> serialize();
-	void deserialize(List<String> args);
+	void deserialize(List<String> args) throws Exception;
 	
 	
 	

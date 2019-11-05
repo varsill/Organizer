@@ -118,7 +118,7 @@ public class Main {
 			return true;
 		}
 		
-		static ISerializable createFromStringList(List<String> args) {
+		static IdGenerator createFromStringList(List<String> args) {
 			
 			MainIdGenerator result = new MainIdGenerator();
 			result.deserialize(args);

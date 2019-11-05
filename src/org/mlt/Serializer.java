@@ -26,7 +26,7 @@ public class Serializer {
         outPutFile.close();
     }
 
-    public static List<Member> recoverObjects(String fileName) throws FileNotFoundException {
+    public static List<Member> recoverMembers(String fileName) throws Exception {
         List<Member> objectsReference = new ArrayList<>();
         List<String> allObjects = convertToArrayOfString(readFromFile(fileName));
         for(String oneObject: allObjects)
@@ -42,6 +42,9 @@ public class Serializer {
                 case "file" :
                     objectsReference.add((Member) UsersFile.createFromStringList(dataForObject));
                     break;
+                case "dir" :
+                    objectsReference.add((Member) LogicalDirectory.createFromStringList(dataForObject));
+                    break;
             }
         }
 
@@ -55,11 +58,11 @@ public class Serializer {
         if(object instanceof UsersFile)
             return "file";
         if(object instanceof LogicalDirectory)
-            return "dic";
+            return "dir";
         return "";
     }
 
-    private static String convertToString(List<String> data)
+    static String convertToString(List<String> data)
     {
         StringBuilder intoFile = new StringBuilder();
         for(String onePart: data)
@@ -77,7 +80,7 @@ public class Serializer {
         return in.nextLine();
     }
 
-    private static List<String> convertToArrayOfString(String input){
+    static List<String> convertToArrayOfString(String input){
 
         List<String> data = new ArrayList<>();
 
@@ -95,6 +98,8 @@ public class Serializer {
 
     private static String removeFrames(String rawString)
     {
+        if(rawString.length() < 2)
+            return rawString;
         return rawString.substring(1, rawString.length()-1);
     }
 

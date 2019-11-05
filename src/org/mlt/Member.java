@@ -60,7 +60,6 @@ public abstract class Member implements ISerializable{
         if(!(other.getClass().equals(this.getClass()))) {
             return false;
         }
-//        System.out.println();
         return this.getName().equals(((Member) other).getName()) && this.getId().readAsInteger().equals(((Member)other).getId().readAsInteger()) &&
                 this.getDescription().equals(((Member) other).getDescription());
     }
@@ -75,15 +74,13 @@ public abstract class Member implements ISerializable{
     }
    
 	@Override
-	public void deserialize(List<String> args) {
+	public void deserialize(List<String> args) throws Exception {
 		try {
-			this.id = new Identifier(Main.MainIdGenerator.getInstance(), Integer.valueOf(args.get(0)));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			this.id = new Identifier(Main.MainIdGenerator.getInstance(), Integer.parseInt(args.get(0)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.description=args.get(1);
+        this.description=args.get(1);
 		this.name=args.get(2);
 	}
 }

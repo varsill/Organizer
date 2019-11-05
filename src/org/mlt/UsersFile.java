@@ -33,8 +33,7 @@ public class UsersFile extends Member {
     }
 
     @Override
-    public void deserialize(List<String> args)
-    {
+    public void deserialize(List<String> args) throws Exception {
         super.deserialize(args);
         this.source= args.get(3);
     }
@@ -44,7 +43,7 @@ public class UsersFile extends Member {
         return this.source;
     }
     
-    static ISerializable createFromStringList(List<String> args) {
+    static ISerializable createFromStringList(List<String> args) throws Exception {
 		UsersFile result = new UsersFile();
 		result.deserialize(args);
 		return result;

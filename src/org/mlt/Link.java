@@ -37,8 +37,7 @@ public class Link extends Member {
     }
 
     @Override
-    public void deserialize(List<String> args)
-    {
+    public void deserialize(List<String> args) throws Exception {
     	super.deserialize(args);
     	this.address= args.get(3);
     }
@@ -55,7 +54,7 @@ public class Link extends Member {
     }
 
 
-	static ISerializable createFromStringList(List<String> args) {
+	static ISerializable createFromStringList(List<String> args) throws Exception {
 		
 		Link result = new Link();
 		result.deserialize(args);

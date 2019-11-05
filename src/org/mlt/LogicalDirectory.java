@@ -1,30 +1,32 @@
 package org.mlt;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class LogicalDirectory extends Member
 {
-    public LinkedList <Member> children;
+    private List<Identifier> children;
+    private IdGenerator generator;
     
     private LogicalDirectory()
     {
     	super();
+        this.children = new ArrayList<>();
     }
     
     public LogicalDirectory(Identifier id, String name)
     {
         super(id, name);
-        this.children = new LinkedList<Member>();
+        this.children = new ArrayList<>();
     }
 
-    public void addChild(Member child)
+    public void addChild(Identifier child)
     {
-        int pos = findPositionForChild(child);
-        this.children.add(pos, child);
+        this.children.add(child);
     }
 
-    public void deleteChild(Member child)
+    public void deleteChild(Identifier child)
     {
         this.children.remove(child);
     }
@@ -34,41 +36,41 @@ public class LogicalDirectory extends Member
 
     }
 
-
-    private int findPositionForChild(Member newChild)
-    {
-        int newChildPriority = priority(newChild);
-
-        for(Member child : this.children)
-        {
-            if(priority(child) == newChildPriority) 
-            {
-                if (child.getName().compareTo(newChild.getName()) >= 0)
-                    return this.children.indexOf(child);
-            }
-            else if(priority(child) > newChildPriority)
-                    return this.children.indexOf(child);
-
-        }
-        return this.children.size();
-    }
-
-    private int priority(Member object)
-    {
-        if(object instanceof LogicalDirectory)
-            return 0;
-        if(object instanceof UsersFile)
-            return 1;
-        if(object instanceof Link)
-            return 2;
-        return 100;
-    }
-    
-static ISerializable createFromStringList(List<String> args) {
+    static ISerializable createFromStringList(List<String> args) throws Exception {
 		
 		LogicalDirectory result = new LogicalDirectory();
 		result.deserialize(args);
 		return result;
 	}
+
+    @Override
+    public List<String> serialize()
+    {
+        List<String> result = super.serialize();
+        List<String> children = new ArrayList<>();
+        for(Identifier child: this.children)
+        {
+            children.add(child.readAsInteger().toString());
+        }
+        result.add(Serializer.convertToString(children));
+        result.add(Serializer.convertToString(this.generator.serialize()));
+        return result;
+    }
+
+    @Override
+    public void deserialize(List<String> args) throws Exception {
+        super.deserialize(args);
+        for(String child: Serializer.convertToArrayOfString(args.get(3)))
+        {
+            this.children.add(new Identifier(this.generator, Integer.parseInt(child)));
+        }
+        this.generator = Main.MainIdGenerator.createFromStringList(Serializer.convertToArrayOfString(args.get(4)));
+
+    }
+
+    public boolean equals(Object other)
+    {
+        return super.equals(other); //&& this.address.equals(((Link) other).address);
+    }
     
 }
